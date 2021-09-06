@@ -17,17 +17,19 @@ modules:
   - name: ares
     buildsystem: simple
     build-commands:
-      - make -j $FLATPAK_BUILDER_N_JOBS -C desktop-ui install build=release hiro=gtk3 local=false prefix=$FLATPAK_DEST
+      - make -j $FLATPAK_BUILDER_N_JOBS -C desktop-ui install build=release hiro=gtk3
+        local=false prefix=$FLATPAK_DEST
       - install -D -m 644 -t $FLATPAK_DEST/share/metainfo $FLATPAK_ID.metainfo.xml
     sources:
       - type: git
         url: https://github.com/higan-emu/ares.git
-        commit: 9e1402d437fb5db9f76fc25b60e7083a0d9bc7ac
+        commit: 5abc150d05e8d135f6e67b71069c94f5e2c0c14d
         x-checker-data:
           type: json
           url: https://api.github.com/repos/higan-emu/ares/releases/latest
           tag-query: .tag_name
-          version-query: '$tag | sub("^v"; "")'
+          version-query: $tag | sub("^v"; "")
           timestamp-query: .published_at
+        tag: v123
       - type: file
         path: dev.ares.ares.metainfo.xml
