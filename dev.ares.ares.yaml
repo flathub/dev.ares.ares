@@ -23,5 +23,11 @@ modules:
       - type: git
         url: https://github.com/higan-emu/ares.git
         commit: 9e1402d437fb5db9f76fc25b60e7083a0d9bc7ac
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/higan-emu/ares/releases/latest
+          tag-query: .tag_name
+          version-query: '$tag | sub("^v"; "")'
+          timestamp-query: .published_at
       - type: file
         path: dev.ares.ares.metainfo.xml
