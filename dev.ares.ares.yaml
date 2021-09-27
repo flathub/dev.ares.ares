@@ -22,7 +22,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/higan-emu/ares.git
-        commit: 9e1402d437fb5db9f76fc25b60e7083a0d9bc7ac
+        commit: 741bfcda01321135a9867bb1fe942ba648131ba2
         x-checker-data:
           type: json
           url: https://api.github.com/repos/higan-emu/ares/releases/latest
