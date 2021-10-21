@@ -22,12 +22,14 @@ modules:
       - install -D -m 644 -t $FLATPAK_DEST/share/metainfo $FLATPAK_ID.metainfo.xml
     sources:
       - type: archive
-        url: https://github.com/ares-emulator/ares/archive/refs/tags/v124.tar.gz
-        sha256: 4d5c906c5cd5d145dd1324dd41a521366c62130a5234ac5d6f8d8dc03279d4e0
+        archive-type: tar
+        url: https://api.github.com/repos/ares-emulator/ares/tarball/v124
+        sha256: 679f492ed7adb07c778f5f63801cc6d889fc0eb5d923a58efbf06786d5ae518e
         x-checker-data:
           type: json
           url: https://api.github.com/repos/ares-emulator/ares/releases/latest
           version-query: .tag_name | sub("^v"; "")
+          timestamp-query: .published_at
           url-query: .tarball_url
       - type: file
         path: dev.ares.ares.metainfo.xml
