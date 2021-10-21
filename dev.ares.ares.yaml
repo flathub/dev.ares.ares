@@ -22,6 +22,7 @@ modules:
       - install -D -m 644 -t $FLATPAK_DEST/share/metainfo $FLATPAK_ID.metainfo.xml
     sources:
       - type: archive
+        archive-type: tar
         url: https://api.github.com/repos/ares-emulator/ares/tarball/v124
         sha256: 679f492ed7adb07c778f5f63801cc6d889fc0eb5d923a58efbf06786d5ae518e
         x-checker-data:
