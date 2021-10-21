@@ -28,6 +28,7 @@ modules:
           type: json
           url: https://api.github.com/repos/ares-emulator/ares/releases/latest
           version-query: .tag_name | sub("^v"; "")
+          timestamp-query: .published_at
           url-query: .tarball_url
       - type: file
         path: dev.ares.ares.metainfo.xml
