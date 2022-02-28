@@ -12,7 +12,6 @@ finish-args:
   - --socket=x11
   - --device=all
   - --filesystem=home:ro
-  - --talk-name=org.a11y.*
 modules:
   - name: ares
     buildsystem: simple
