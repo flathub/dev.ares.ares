@@ -149,6 +149,7 @@
     <binary>ares</binary>
   </provides>
   <releases>
+    <release version="127" date="2022-03-03"/>
     <release version="126" date="2021-11-28"/>
     <release version="125.1" date="2021-11-11"/>
     <release version="125" date="2021-11-10"/>
