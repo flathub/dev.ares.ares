@@ -22,8 +22,8 @@ modules:
     sources:
       - type: archive
         archive-type: tar
-        url: https://api.github.com/repos/ares-emulator/ares/tarball/v127
-        sha256: 350b4bd7b9af99760f0f92e577fdaa9ebcd797969af1b3d29faa65bccfb7d3ae
+        url: https://api.github.com/repos/ares-emulator/ares/tarball/v128
+        sha256: cfc4fad85de56f62196420cf5a26c4b3b5e0c2a5b3546a67af3d06ac6fa3d5af
         x-checker-data:
           type: json
           url: https://api.github.com/repos/ares-emulator/ares/releases/latest
