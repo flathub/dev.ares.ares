@@ -17,7 +17,7 @@ modules:
     buildsystem: simple
     build-commands:
       - make -j $FLATPAK_BUILDER_N_JOBS -C desktop-ui install build=release hiro=gtk3
-        local=false prefix=$FLATPAK_DEST
+        local=false platform=linux prefix=$FLATPAK_DEST
       - install -D -m 644 -t $FLATPAK_DEST/share/metainfo $FLATPAK_ID.metainfo.xml
     sources:
       - type: archive
