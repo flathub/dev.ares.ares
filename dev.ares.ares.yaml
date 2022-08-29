@@ -11,7 +11,7 @@ finish-args:
   - --socket=pulseaudio
   - --socket=x11
   - --device=all
-  - --filesystem=home:ro
+  - --filesystem=host
 modules:
   - name: ares
     buildsystem: simple
