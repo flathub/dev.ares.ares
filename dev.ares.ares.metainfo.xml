@@ -48,9 +48,6 @@
   <launchable type="desktop-id">dev.ares.ares.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://ares-emu.net/img/preview.png</image>
-    </screenshot>
-    <screenshot>
       <image>https://ares-emu.net/img/gallery/famicom_gimmick.png</image>
       <caption>Famicom</caption>
     </screenshot>
