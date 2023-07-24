@@ -1,0 +1,70 @@
+---
+ desktop-ui/desktop-ui.cpp | 13 +++++++++++--
+ mia/mia.cpp               | 10 ++++++++--
+ nall/path.cpp             |  2 +-
+ 3 files changed, 20 insertions(+), 5 deletions(-)
+
+diff --git a/desktop-ui/desktop-ui.cpp b/desktop-ui/desktop-ui.cpp
+index f4ac44202..24d109806 100644
+--- a/desktop-ui/desktop-ui.cpp
++++ b/desktop-ui/desktop-ui.cpp
+@@ -26,10 +26,19 @@ auto locate(const string& name) -> string {
+   location = {Path::userData(), "ares/", name};
+   if(inode::exists(location)) return location;
+ 
+-  // On non-windows platforms, after exhausting other options,
+-  // default to userData, on Windows, default to program dir
++  // On non-windows platforms, this time check the shared
++  // data directory, on Windows, default to program dir,
+   // this ensures Portable mode is the default on Windows platforms.
+   #if !defined(PLATFORM_WINDOWS)
++    string shared_location = {Path::sharedData(), "ares/", name};
++    if(inode::exists(shared_location)) return shared_location;
++    // XXX: Change settings.bml location to match Ares' default behavior.
++    if(directory::exists({Path::userSettings(), "ares/"})) {
++      file::copy({Path::userSettings(), "ares/settings.bml"}, {Path::userData(), "ares/settings.bml"});
++    }
++    
++    // On non-windows platforms, after exhausting other options,
++    // default to userData.
+     directory::create({Path::userData(), "ares/"});
+     return {Path::userData(), "ares/", name};
+   #else 
+diff --git a/mia/mia.cpp b/mia/mia.cpp
+index 47d1771bc..a2d9f843f 100644
+--- a/mia/mia.cpp
++++ b/mia/mia.cpp
+@@ -28,10 +28,15 @@ auto locate(const string& name) -> string {
+   location = {Path::userData(), "ares/", name};
+   if(inode::exists(location)) return location;
+ 
+-  // On non-windows platforms, after exhausting other options,
+-  // default to userData, on Windows, default to program dir
++  // On non-windows platforms, this time check the shared
++  // data directory, on Windows, default to program dir
+   // this ensures Portable mode is the default on Windows platforms.
+ #if !defined(PLATFORM_WINDOWS)
++  string shared_location = {Path::sharedData(), "ares/", name};
++  if(inode::exists(shared_location)) return shared_location;
++
++  // On non-windows platforms, after exhausting other options,
++  // default to userData
+   directory::create({Path::userData(), "ares/"});
+   return {Path::userData(), "ares/", name};
+ #else
+diff --git a/nall/path.cpp b/nall/path.cpp
+index 02a12b9f3..68ca517f2 100644
+--- a/nall/path.cpp
++++ b/nall/path.cpp
+@@ -119,7 +119,7 @@ NALL_HEADER_INLINE auto sharedData() -> string {
+   #elif defined(PLATFORM_MACOS)
+   string result = "/Library/Application Support/";
+   #else
+-  string result = "/usr/share/";
++  string result = "/app/share/";
+   #endif
+   if(!result) result = ".";
+   if(!result.endsWith("/")) result.append("/");
+-- 
+2.41.0
+
