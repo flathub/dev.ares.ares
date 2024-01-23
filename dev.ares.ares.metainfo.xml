@@ -146,6 +146,7 @@
     <binary>ares</binary>
   </provides>
   <releases>
+    <release version="135" date="2024-01-23"/>
     <release version="134" date="2023-11-22"/>
     <release version="133" date="2023-07-21"/>
     <release version="132" date="2023-03-08"/>
