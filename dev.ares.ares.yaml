@@ -21,6 +21,8 @@ build-options:
 modules:
   - name: ares
     buildsystem: simple
+    config-opts:
+      - "-DARES_PREFIX=/app"
     build-commands:
       - make -j $FLATPAK_BUILDER_N_JOBS -C desktop-ui install build=release hiro=gtk3
         local=false platform=linux prefix=$FLATPAK_DEST
@@ -31,8 +33,8 @@ modules:
     sources:
       - type: archive
         archive-type: tar
-        url: https://api.github.com/repos/ares-emulator/ares/tarball/v139
-        sha256: 56ba94d9bd6bccc2175a714c1f5aac31eb027318ee2b59925c737ab0c5b3f662
+        url: https://api.github.com/repos/ares-emulator/ares/tarball/v140
+        sha256: 411ddbb41dbccffb8cdd0154ac32dd68feefab1cbd23c2ceffe06153205132b3
         x-checker-data:
           type: json
           url: https://api.github.com/repos/ares-emulator/ares/releases/latest
@@ -41,6 +43,4 @@ modules:
           url-query: .tarball_url
       - type: file
         path: dev.ares.ares.metainfo.xml
-      - type: patch
-        path: ares-paths.patch
       - cargo-sources.json
