@@ -2,8 +2,10 @@ app-id: dev.ares.ares
 runtime: org.freedesktop.Platform
 runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.rust-nightly
+add-build-extensions:
+  org.freedesktop.Sdk.Extension.rust-stable:
+    version: '23.08'
+    remove-after-build: true
 command: ares
 rename-desktop-file: ares.desktop
 rename-icon: ares
@@ -15,9 +17,9 @@ finish-args:
   - --device=all
   - --filesystem=host
 build-options:
-  append-path: /usr/lib/sdk/rust-nightly/extra/sdk/rust-nightly/bin
+  append-path: /usr/lib/sdk/rust-stable/bin
   env:
-    CARGO_HOME: "/run/build/ares/cargo"
+    CARGO_HOME: /run/build/ares/cargo
 modules:
   - name: ares
     buildsystem: simple
@@ -27,7 +29,7 @@ modules:
       - make -j $FLATPAK_BUILDER_N_JOBS -C desktop-ui install build=release hiro=gtk3
         local=false platform=linux prefix=$FLATPAK_DEST
       - install -D -m 644 -t $FLATPAK_DEST/share/metainfo $FLATPAK_ID.metainfo.xml
-      - cd thirdparty/librashader && cargo run -p librashader-build-script -- --profile optimized
+      - cd thirdparty/librashader && cargo run -p librashader-build-script -- --profile optimized --stable
       - install -D thirdparty/librashader/target/optimized/librashader.so ${FLATPAK_DEST}/lib/librashader.so
       - install -D thirdparty/librashader/pkg/librashader.pc ${FLATPAK_DEST}/lib/pkgconfig/librashader.pc
     sources:
