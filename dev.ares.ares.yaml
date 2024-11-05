@@ -1,6 +1,6 @@
 app-id: dev.ares.ares
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 command: ares
 rename-desktop-file: ares.desktop
@@ -24,8 +24,8 @@ modules:
     sources:
       - type: archive
         archive-type: tar
-        url: https://api.github.com/repos/ares-emulator/ares/tarball/v140
-        sha256: 411ddbb41dbccffb8cdd0154ac32dd68feefab1cbd23c2ceffe06153205132b3
+        url: https://api.github.com/repos/ares-emulator/ares/tarball/v141
+        sha256: 6990e26abbe7551d04599f9d64589988e2c175cdddfb813ac0d3fbf08e7d48c8
         x-checker-data:
           type: json
           url: https://api.github.com/repos/ares-emulator/ares/releases/latest
