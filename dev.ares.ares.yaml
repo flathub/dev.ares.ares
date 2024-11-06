@@ -4,7 +4,7 @@ runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 add-build-extensions:
   org.freedesktop.Sdk.Extension.rust-stable:
-    version: '23.08'
+    version: '24.08'
     remove-after-build: true
 command: ares
 rename-desktop-file: ares.desktop
