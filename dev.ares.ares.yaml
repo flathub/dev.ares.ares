@@ -1,36 +1,94 @@
-app-id: dev.ares.ares
-runtime: org.freedesktop.Platform
-runtime-version: '24.08'
-sdk: org.freedesktop.Sdk
-command: ares
-rename-desktop-file: ares.desktop
-rename-icon: ares
-finish-args:
-  - --share=ipc
-  - --share=network
-  - --socket=pulseaudio
-  - --socket=x11
-  - --device=all
-  - --filesystem=host
-modules:
-  - name: ares
-    buildsystem: simple
-    config-opts:
-      - -DARES_PREFIX=/app
-    build-commands:
-      - make -j $FLATPAK_BUILDER_N_JOBS -C desktop-ui install build=release hiro=gtk3
-        local=false platform=linux prefix=$FLATPAK_DEST
-      - install -D -m 644 -t $FLATPAK_DEST/share/metainfo $FLATPAK_ID.metainfo.xml
-    sources:
-      - type: archive
-        archive-type: tar
-        url: https://api.github.com/repos/ares-emulator/ares/tarball/v141
-        sha256: 6990e26abbe7551d04599f9d64589988e2c175cdddfb813ac0d3fbf08e7d48c8
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/ares-emulator/ares/releases/latest
-          version-query: .tag_name | sub("^v"; "")
-          timestamp-query: .published_at
-          url-query: .tarball_url
-      - type: file
-        path: dev.ares.ares.metainfo.xml
+  app-id: dev.ares.ares
+  runtime: org.freedesktop.Platform
+  runtime-version: '24.08'
+  sdk: org.freedesktop.Sdk
+  add-build-extensions:
+    - org.freedesktop.Sdk.Extension.rust-stable:
+      version: '24.08'
+      remove-after-build: true
+    - org.freedesktop.Sdk.Extension.llvm19:
+      version: '24.08'
+      remove-after-build: true
+  command: ares
+  rename-desktop-file: ares.desktop
+  rename-icon: ares
+  finish-args:
+    - --share=ipc
+    - --share=network
+    - --socket=pulseaudio
+    - --socket=x11
+    - --device=all
+    - --filesystem=host
+  modules:
+    - name: librashader
+      buildsystem: simple
+      build-options:
+        append-path: /usr/lib/sdk/rust-stable/bin
+        env:
+          CARGO_HOME: /run/build/librashader/cargo
+      build-commands:
+        - cargo run -p librashader-build-script -- --profile optimized --stable
+        - mkdir ${FLATPAK_DEST}/lib && cp -r target/optimized/librashader.so ${FLATPAK_DEST}/lib/librashader.so
+        - mkdir -p ${FLATPAK_DEST}/include/librashader/ && cp -r include/* ${FLATPAK_DEST}/include/librashader/      
+      sources:
+        - type: archive
+          archive-type: tar
+          url: https://api.github.com/repos/SnowflakePowered/librashader/tarball/librashader-v0.5.1
+          sha256: 797398ab2a68ae47793a02bb5fe8b1e606e22f9ccaa8eb26e57c9ecc4aa8334c
+          x-checker-data:
+            type: json
+            url: https://api.github.com/repos/SnowflakePowered/librashader/releases/latest
+            version-query: .tag_name | sub("^v"; "")
+            timestamp-query: .published_at
+            url-query: .tarball_url 
+        - cargo-sources.json 
+    - name: slang-shaders
+      make-install-args: 
+        - PREFIX=${FLATPAK_DEST}
+      post-install:
+        - mkdir -p ${FLATPAK_DEST}/share/ares/Shaders && cp -r ${FLATPAK_DEST}/share/libretro/shaders/shaders_slang/* ${FLATPAK_DEST}/share/ares/Shaders
+      cleanup:
+        - /share/libretro
+      sources: 
+        - type: git
+          url: https://github.com/libretro/slang-shaders.git  
+          commit: 130f589cd5a2f3e5df1d6607b82b6771bc8b8446
+    - name: ares
+      buildsystem: cmake-ninja
+      builddir: true
+      build-options:
+        append-path: /usr/lib/sdk/llvm19/bin
+        prepend-ld-library-path: /usr/lib/sdk/llvm19/lib
+      config-opts:
+        - -W no-dev
+        - -D CMAKE_BUILD_TYPE=RelWithDebInfo
+        - -D CMAKE_INSTALL_PREFIX=/app
+        - -D CMAKE_PREFIX_PATH=/app
+        - -D ARES_BUILD_LOCAL=OFF
+        - -D ARES_BUNDLE_SHADERS=OFF
+        - -D ARES_SKIP_DEPS=ON
+        - -D CMAKE_C_COMPILER=clang
+        - -D CMAKE_CXX_COMPILER=clang++
+        - -D ARES_VERSION_OVERRIDE=v143
+        - -G Ninja
+      sources:
+        - type: archive
+          archive-type: tar
+          url: https://api.github.com/repos/ares-emulator/ares/tarball/v143
+          sha256: 094c367b92c12c2ba43402396e63e1c22f355ecabb082c2053206f567c3338c5
+          x-checker-data:
+            type: json
+            url: https://api.github.com/repos/ares-emulator/ares/releases/latest
+            version-query: .tag_name | sub("^v"; "")
+            timestamp-query: .published_at
+            url-query: .tarball_url
+        - type: patch
+          path: ares-paths.patch
+    - name: ares-metadata
+      buildsystem: simple
+      build-commands:
+        - install -D -m 644 -t $FLATPAK_DEST/share/metainfo $FLATPAK_ID.metainfo.xml
+      sources:
+        - type: file
+          path: dev.ares.ares.metainfo.xml
+
