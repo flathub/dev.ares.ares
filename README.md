@@ -6,7 +6,7 @@
 
 Since Librashader is built in Rust, a `cargo-sources.json` file is required to install the required dependencies. The `cargo-sources.json` file typically needs to be updated when ares bumps its Librashader version. This section will cover how to update that file. 
 
-1. Identify the required Librashader version by looking at the `librashader` file, [https://github.com/ares-emulator/ares-deps/blob/main/deps.windows/librashader](https://github.com/ares-emulator/ares-deps/blob/main/deps.windows/librashader).
+1. Identify the required Librashader version by looking at the `librashader` file, [https://github.com/ares-emulator/ares-deps/blob/main/deps.linux/librashader#L2](https://github.com/ares-emulator/ares-deps/blob/main/deps.linux/librashader#L2).
 2. Download and extract the corresponding Librashader version to a folder of your choice:
     * https://api.github.com/repos/SnowflakePowered/librashader/tarball/librashader-v#.#.#
     * Replace the `#.#.#` with the version you located in Step 1.
