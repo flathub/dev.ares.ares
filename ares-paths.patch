@@ -1,20 +1,13 @@
 --- a/nall/path.cpp
 +++ b/nall/path.cpp
-@@ -143,7 +143,7 @@ NALL_HEADER_INLINE auto sharedData() -> string {
-   #elif defined(PLATFORM_MACOS)
-   string result = "/Library/Application Support/";
-   #else
--  string result = "/usr/share/";
-+  string result = "/app/share/";
+@@ -25,9 +25,7 @@ NALL_HEADER_INLINE auto program() -> string {
+     return Path::real(path);
+   }
    #endif
-   if(!result) result = ".";
-   if(!result.endsWith("/")) result.append("/");
-@@ -152,7 +152,7 @@ NALL_HEADER_INLINE auto sharedData() -> string {
- 
- #if defined(PLATFORM_LINUX) || defined(PLATFORM_BSD)
- NALL_HEADER_INLINE auto prefixSharedData() -> string {
--  string result = program().append("../share/");
-+  string result = program().append("/app/share/");
-   return result;
+-  Dl_info info;
+-  dladdr((void*)&program, &info);
+-  return Path::real(info.dli_fname);
++  return "/app/bin/";
+   #endif
  }
-
+ 
