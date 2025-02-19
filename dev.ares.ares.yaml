@@ -91,4 +91,3 @@ modules:
     sources:
       - type: file
         path: dev.ares.ares.metainfo.xml
-
