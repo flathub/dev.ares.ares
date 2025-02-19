@@ -72,16 +72,22 @@ modules:
       - -D ARES_VERSION_OVERRIDE=v143
       - -G Ninja
     sources:
-      - type: archive
-        archive-type: tar
-        url: https://api.github.com/repos/ares-emulator/ares/tarball/v143
-        sha256: 094c367b92c12c2ba43402396e63e1c22f355ecabb082c2053206f567c3338c5
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/ares-emulator/ares/releases/latest
-          version-query: .tag_name | sub("^v"; "")
-          timestamp-query: .published_at
-          url-query: .tarball_url
+      # This section grabs the latest stable ares release. This section will typically be used. If  this section is commented out, that means the Flatpak is either grabbing the latest commit or a commit created after the latest stable release.
+#      - type: archive
+#        archive-type: tar
+#        url: https://api.github.com/repos/ares-emulator/ares/tarball/v143
+#        sha256: 094c367b92c12c2ba43402396e63e1c22f355ecabb082c2053206f567c3338c5
+#        x-checker-data:
+#          type: json
+#          url: https://api.github.com/repos/ares-emulator/ares/releases/latest
+#          version-query: .tag_name | sub("^v"; "")
+#          timestamp-query: .published_at
+#          url-query: .tarball_url
+      # This section grabs a commit after the latest stable release from ares. This section will typically be commented out. In case of a potential breakage, use this section to update to the latest commit or a commit created after the latest stable release.
+      # See https://github.com/ares-emulator/ares/commit/54c898f199694c2d5866dad45aecb68fda4ee3b7, save files were not working as expected.
+      - type: git
+        url: https://github.com/ares-emulator/ares.git
+        commit: 54c898f199694c2d5866dad45aecb68fda4ee3b7
       - type: patch
         path: ares-paths.patch
   - name: ares-metadata
