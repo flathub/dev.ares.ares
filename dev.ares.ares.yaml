@@ -29,25 +29,25 @@ modules:
     build-commands:
       - cargo run -p librashader-build-script -- --profile optimized --stable
       - mkdir ${FLATPAK_DEST}/lib && cp -r target/optimized/librashader.so ${FLATPAK_DEST}/lib/librashader.so
-      - mkdir -p ${FLATPAK_DEST}/include/librashader/ && cp -r include/* ${FLATPAK_DEST}/include/librashader/      
+      - mkdir -p ${FLATPAK_DEST}/include/librashader/ && cp -r include/* ${FLATPAK_DEST}/include/librashader/
     sources:
       - type: archive
         archive-type: tar
-        url: https://api.github.com/repos/SnowflakePowered/librashader/tarball/librashader-v0.5.1
-        sha256: 797398ab2a68ae47793a02bb5fe8b1e606e22f9ccaa8eb26e57c9ecc4aa8334c
+        url: https://api.github.com/repos/SnowflakePowered/librashader/tarball/librashader-v0.6.3
+        sha256: eb6bb1c482012109eb1377f20da04cb667db613d6747f2d0e1064224e8ad6a13
         x-checker-data:
           type: json
           url: https://api.github.com/repos/SnowflakePowered/librashader/releases/latest
           version-query: .tag_name | sub("^v"; "")
           timestamp-query: .published_at
-          url-query: .tarball_url 
-      - cargo-sources.json 
+          url-query: .tarball_url
+      - cargo-sources.json
   - name: slang-shaders
-    make-install-args: 
+    make-install-args:
       - PREFIX=${FLATPAK_DEST}
-    sources: 
+    sources:
       - type: git
-        url: https://github.com/libretro/slang-shaders.git  
+        url: https://github.com/libretro/slang-shaders.git
         commit: 130f589cd5a2f3e5df1d6607b82b6771bc8b8446
   - name: ares
     buildsystem: cmake-ninja
