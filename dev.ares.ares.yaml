@@ -29,14 +29,8 @@ modules:
     sources:
       - type: archive
         archive-type: tar
-        url: https://api.github.com/repos/SnowflakePowered/librashader/tarball/librashader-v0.5.1
-        sha256: 797398ab2a68ae47793a02bb5fe8b1e606e22f9ccaa8eb26e57c9ecc4aa8334c
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/SnowflakePowered/librashader/releases/latest
-          version-query: .tag_name | sub("^v"; "")
-          timestamp-query: .published_at
-          url-query: .tarball_url 
+        url: https://api.github.com/repos/SnowflakePowered/librashader/tarball/librashader-v0.6.3
+        sha256: eb6bb1c482012109eb1377f20da04cb667db613d6747f2d0e1064224e8ad6a13
       - cargo-sources.json 
   - name: slang-shaders
     make-install-args: 
@@ -45,6 +39,16 @@ modules:
       - type: git
         url: https://github.com/libretro/slang-shaders.git  
         commit: 130f589cd5a2f3e5df1d6607b82b6771bc8b8446
+  # ares now requires SDL3 which will be included in the next version of org.freedesktop.Platform, see https://gitlab.com/freedesktop-sdk/freedesktop-sdk/-/issues/?sort=created_date&state=closed&search=sdl&first_page_size=20&show=eyJpaWQiOiIxODM5IiwiZnVsbF9wYXRoIjoiZnJlZWRlc2t0b3Atc2RrL2ZyZWVkZXNrdG9wLXNkayIsImlkIjoxNjIzNjYyODB9 for more information. Once updated, this section can be dropped.
+  - name: SDL
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -D CMAKE_BUILD_TYPE=RelWithDebInf
+    sources:
+      - type: git
+        url: https://github.com/libsdl-org/SDL
+        commit: 877399b2b2cf21e67554ed9046410f268ce1d1b2
   - name: ares
     buildsystem: cmake-ninja
     builddir: true
@@ -61,21 +65,19 @@ modules:
       - -D ARES_SKIP_DEPS=ON
       - -D CMAKE_C_COMPILER=clang
       - -D CMAKE_CXX_COMPILER=clang++
-      - -D ARES_VERSION_OVERRIDE=v143
+      - -D ARES_VERSION_OVERRIDE=v144
       - -G Ninja
     sources:
       - type: archive
         archive-type: tar
-        url: https://api.github.com/repos/ares-emulator/ares/tarball/v143
-        sha256: 094c367b92c12c2ba43402396e63e1c22f355ecabb082c2053206f567c3338c5
+        url: https://api.github.com/repos/ares-emulator/ares/tarball/v144
+        sha256: dc324634c8fca574aaf645b4ced43e0d40bc59cd355d7c9a75e36ce71a780696
         x-checker-data:
           type: json
           url: https://api.github.com/repos/ares-emulator/ares/releases/latest
           version-query: .tag_name | sub("^v"; "")
           timestamp-query: .published_at
           url-query: .tarball_url
-      - type: patch
-        path: ares-paths.patch
   - name: ares-metadata
     buildsystem: simple
     build-commands:
