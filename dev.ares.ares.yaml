@@ -29,8 +29,8 @@ modules:
     sources:
       - type: archive
         archive-type: tar
-        url: https://api.github.com/repos/SnowflakePowered/librashader/tarball/librashader-v0.6.3
-        sha256: eb6bb1c482012109eb1377f20da04cb667db613d6747f2d0e1064224e8ad6a13
+        url: https://api.github.com/repos/SnowflakePowered/librashader/tarball/librashader-v0.8.1
+        sha256: fefa68c79ae4d816605b027aa8bbf87829340b1892b208a860d04eb55bad09e3
       - cargo-sources.json 
   - name: slang-shaders
     make-install-args: 
@@ -38,7 +38,7 @@ modules:
     sources: 
       - type: git
         url: https://github.com/libretro/slang-shaders.git  
-        commit: 130f589cd5a2f3e5df1d6607b82b6771bc8b8446
+        commit: 48ac13f49d7a0a61250e0da86ff27c567cd2d69b
   # ares now requires SDL3 which will be included in the next version of org.freedesktop.Platform, see https://gitlab.com/freedesktop-sdk/freedesktop-sdk/-/issues/?sort=created_date&state=closed&search=sdl&first_page_size=20&show=eyJpaWQiOiIxODM5IiwiZnVsbF9wYXRoIjoiZnJlZWRlc2t0b3Atc2RrL2ZyZWVkZXNrdG9wLXNkayIsImlkIjoxNjIzNjYyODB9 for more information. Once updated, this section can be dropped.
   - name: SDL
     buildsystem: cmake-ninja
@@ -48,7 +48,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/libsdl-org/SDL
-        commit: 877399b2b2cf21e67554ed9046410f268ce1d1b2
+        commit: 8d604353a53853fa56d1bdce0363535605ca868f
   - name: ares
     buildsystem: cmake-ninja
     builddir: true
@@ -65,13 +65,13 @@ modules:
       - -D ARES_SKIP_DEPS=ON
       - -D CMAKE_C_COMPILER=clang
       - -D CMAKE_CXX_COMPILER=clang++
-      - -D ARES_VERSION_OVERRIDE=v144
+      - -D ARES_BUILD_OFFICIAL=YES
       - -G Ninja
     sources:
       - type: archive
         archive-type: tar
-        url: https://api.github.com/repos/ares-emulator/ares/tarball/v144
-        sha256: dc324634c8fca574aaf645b4ced43e0d40bc59cd355d7c9a75e36ce71a780696
+        url: https://api.github.com/repos/ares-emulator/ares/tarball/v145
+        sha256: faa7b41cc876367870f110d2cc3b920cacc72b742104228905860e35111c9901
         x-checker-data:
           type: json
           url: https://api.github.com/repos/ares-emulator/ares/releases/latest
