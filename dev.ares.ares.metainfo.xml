@@ -156,8 +156,11 @@
     <binary>ares</binary>
   </provides>
   <releases>
-    <release version="144" date="2025-04-28">
+    <release version="145" date="2025-07-09">
       <description></description>
+    </release>
+    <release version="144" date="2025-04-28">
+      <description/>
     </release>
     <release version="143" date="2025-02-16">
       <description/>
