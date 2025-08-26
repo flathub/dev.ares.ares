@@ -25,19 +25,19 @@ modules:
     build-commands:
       - cargo run -p librashader-build-script -- --profile optimized --stable
       - mkdir ${FLATPAK_DEST}/lib && cp -r target/optimized/librashader.so ${FLATPAK_DEST}/lib/librashader.so
-      - mkdir -p ${FLATPAK_DEST}/include/librashader/ && cp -r include/* ${FLATPAK_DEST}/include/librashader/      
+      - mkdir -p ${FLATPAK_DEST}/include/librashader/ && cp -r include/* ${FLATPAK_DEST}/include/librashader/
     sources:
       - type: archive
         archive-type: tar
         url: https://api.github.com/repos/SnowflakePowered/librashader/tarball/librashader-v0.8.1
         sha256: fefa68c79ae4d816605b027aa8bbf87829340b1892b208a860d04eb55bad09e3
-      - cargo-sources.json 
+      - cargo-sources.json
   - name: slang-shaders
-    make-install-args: 
+    make-install-args:
       - PREFIX=${FLATPAK_DEST}
-    sources: 
+    sources:
       - type: git
-        url: https://github.com/libretro/slang-shaders.git  
+        url: https://github.com/libretro/slang-shaders.git
         commit: 48ac13f49d7a0a61250e0da86ff27c567cd2d69b
   # ares now requires SDL3 which will be included in the next version of org.freedesktop.Platform, see https://gitlab.com/freedesktop-sdk/freedesktop-sdk/-/issues/?sort=created_date&state=closed&search=sdl&first_page_size=20&show=eyJpaWQiOiIxODM5IiwiZnVsbF9wYXRoIjoiZnJlZWRlc2t0b3Atc2RrL2ZyZWVkZXNrdG9wLXNkayIsImlkIjoxNjIzNjYyODB9 for more information. Once updated, this section can be dropped.
   - name: SDL
@@ -70,8 +70,8 @@ modules:
     sources:
       - type: archive
         archive-type: tar
-        url: https://api.github.com/repos/ares-emulator/ares/tarball/v145
-        sha256: faa7b41cc876367870f110d2cc3b920cacc72b742104228905860e35111c9901
+        url: https://api.github.com/repos/ares-emulator/ares/tarball/v146
+        sha256: 43c287b588ffb018bf45cb3b343ab240366fab68a0e3f92be08467fd4f305c7b
         x-checker-data:
           type: json
           url: https://api.github.com/repos/ares-emulator/ares/releases/latest
