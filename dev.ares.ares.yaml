@@ -1,6 +1,6 @@
 app-id: dev.ares.ares
 runtime: org.freedesktop.Platform
-runtime-version: '24.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.rust-stable
@@ -39,16 +39,6 @@ modules:
       - type: git
         url: https://github.com/libretro/slang-shaders.git
         commit: 48ac13f49d7a0a61250e0da86ff27c567cd2d69b
-  # ares now requires SDL3 which will be included in the next version of org.freedesktop.Platform, see https://gitlab.com/freedesktop-sdk/freedesktop-sdk/-/issues/?sort=created_date&state=closed&search=sdl&first_page_size=20&show=eyJpaWQiOiIxODM5IiwiZnVsbF9wYXRoIjoiZnJlZWRlc2t0b3Atc2RrL2ZyZWVkZXNrdG9wLXNkayIsImlkIjoxNjIzNjYyODB9 for more information. Once updated, this section can be dropped.
-  - name: SDL
-    buildsystem: cmake-ninja
-    builddir: true
-    config-opts:
-      - -D CMAKE_BUILD_TYPE=RelWithDebInfo
-    sources:
-      - type: git
-        url: https://github.com/libsdl-org/SDL
-        commit: 8d604353a53853fa56d1bdce0363535605ca868f
   - name: ares
     buildsystem: cmake-ninja
     builddir: true
