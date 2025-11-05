@@ -1,10 +1,10 @@
 app-id: dev.ares.ares
 runtime: org.freedesktop.Platform
-runtime-version: '24.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.rust-stable
-  - org.freedesktop.Sdk.Extension.llvm19
+  - org.freedesktop.Sdk.Extension.llvm20
 command: ares
 rename-desktop-file: ares.desktop
 rename-icon: ares
@@ -39,22 +39,12 @@ modules:
       - type: git
         url: https://github.com/libretro/slang-shaders.git
         commit: 48ac13f49d7a0a61250e0da86ff27c567cd2d69b
-  # ares now requires SDL3 which will be included in the next version of org.freedesktop.Platform, see https://gitlab.com/freedesktop-sdk/freedesktop-sdk/-/issues/?sort=created_date&state=closed&search=sdl&first_page_size=20&show=eyJpaWQiOiIxODM5IiwiZnVsbF9wYXRoIjoiZnJlZWRlc2t0b3Atc2RrL2ZyZWVkZXNrdG9wLXNkayIsImlkIjoxNjIzNjYyODB9 for more information. Once updated, this section can be dropped.
-  - name: SDL
-    buildsystem: cmake-ninja
-    builddir: true
-    config-opts:
-      - -D CMAKE_BUILD_TYPE=RelWithDebInfo
-    sources:
-      - type: git
-        url: https://github.com/libsdl-org/SDL
-        commit: 8d604353a53853fa56d1bdce0363535605ca868f
   - name: ares
     buildsystem: cmake-ninja
     builddir: true
     build-options:
-      append-path: /usr/lib/sdk/llvm19/bin
-      prepend-ld-library-path: /usr/lib/sdk/llvm19/lib
+      append-path: /usr/lib/sdk/llvm20/bin
+      prepend-ld-library-path: /usr/lib/sdk/llvm20/lib
     config-opts:
       - -W no-dev
       - -D CMAKE_BUILD_TYPE=RelWithDebInfo
@@ -71,7 +61,7 @@ modules:
       - type: archive
         archive-type: tar
         url: https://api.github.com/repos/ares-emulator/ares/tarball/v146
-        sha256: 43c287b588ffb018bf45cb3b343ab240366fab68a0e3f92be08467fd4f305c7b
+        sha256: 6045f0a409160815f1deff4abaad811b91156c8804df5e8f5b6d61eefdb6cd9c
         x-checker-data:
           type: json
           url: https://api.github.com/repos/ares-emulator/ares/releases/latest
