@@ -22,14 +22,14 @@ modules:
       env:
         CARGO_HOME: /run/build/librashader/cargo
     build-commands:
-      - cargo run -p librashader-build-script -- --profile optimized --stable
+      - cargo run -p librashader-build-script -- --profile optimized
       - mkdir ${FLATPAK_DEST}/lib && cp -r target/optimized/librashader.so ${FLATPAK_DEST}/lib/librashader.so
       - mkdir -p ${FLATPAK_DEST}/include/librashader/ && cp -r include/* ${FLATPAK_DEST}/include/librashader/
     sources:
       - type: archive
         archive-type: tar
-        url: https://api.github.com/repos/SnowflakePowered/librashader/tarball/librashader-v0.8.1
-        sha256: fefa68c79ae4d816605b027aa8bbf87829340b1892b208a860d04eb55bad09e3
+        url: https://api.github.com/repos/SnowflakePowered/librashader/tarball/librashader-v0.11.0
+        sha256: 231dd2dde1365a62fb53db7eaad2f75f1293c349a9483e6a46199a5525d8416e
       - cargo-sources.json
   - name: slang-shaders
     make-install-args:
@@ -37,7 +37,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/libretro/slang-shaders.git
-        commit: 48ac13f49d7a0a61250e0da86ff27c567cd2d69b
+        commit: cef2de6123cccbf0393ed6071ffd6e4a8d092145
   - name: ares
     buildsystem: cmake-ninja
     builddir: true
