@@ -54,8 +54,8 @@ modules:
     sources:
       - type: archive
         archive-type: tar
-        url: https://api.github.com/repos/ares-emulator/ares/tarball/v147
-        sha256: 0f0e193584c93628ed84babaea5ac47457d270aa2858b0ce262bf77b2de556f1
+        url: https://api.github.com/repos/ares-emulator/ares/tarball/v148
+        sha256: 81031f7a59aa59aa255930b6dcfebecadc4e38f15bad0b4ed19b2361cec88b92
         x-checker-data:
           type: json
           url: https://api.github.com/repos/ares-emulator/ares/releases/latest
