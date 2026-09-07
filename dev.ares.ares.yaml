@@ -62,6 +62,8 @@ modules:
           version-query: .tag_name | sub("^v"; "")
           timestamp-query: .published_at
           url-query: .tarball_url
+      - type: patch
+        path: 0001-linux-Register-file-types-so-they-can-be-opened-thro.patch
   - name: ares-metadata
     buildsystem: simple
     build-commands:
