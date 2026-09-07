@@ -1,0 +1,39 @@
+From 7c46fe3be332ace9a3b46d77977346e4fc269f4e Mon Sep 17 00:00:00 2001
+From: Bastien Nocera <hadess@hadess.net>
+Date: Sat, 5 Sep 2026 10:53:30 +0200
+Subject: [PATCH] linux: Register file types so they can be opened through
+ double-click
+
+Modify Exec field in .desktop file so that the Ares application
+advertises that it can open files (well, a single file at a time).
+
+Then add all the relevant ROM and disk mime-types as being supported.
+Systems list used to select the mime-types to add:
+https://flathub.org/en/apps/dev.ares.ares
+as well as the Atari 2600 and 5200.
+All the registered mime-types are listed here:
+https://gitlab.freedesktop.org/xdg/shared-mime-info/blob/master/data/freedesktop.org.xml.in
+
+Closes: #2621
+---
+ desktop-ui/resource/ares.desktop | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/desktop-ui/resource/ares.desktop b/desktop-ui/resource/ares.desktop
+index 66accf5a17c1..2d914bf31392 100644
+--- a/desktop-ui/resource/ares.desktop
++++ b/desktop-ui/resource/ares.desktop
+@@ -1,8 +1,9 @@
+ [Desktop Entry]
+ Name=ares
+ Comment=Emulator
+-Exec=ares
++Exec=ares "%f"
+ Icon=ares
+ Terminal=false
+ Type=Application
+ Categories=Game;Emulator;
++MimeType=application/x-nes-rom;application/x-fds-disk;application/vnd.nintendo.snes.rom;application/x-n64-rom;application/x-gameboy-rom;application/x-gameboy-color-rom;application/x-gba-rom;application/x-gamegear-rom;application/x-sms-rom;application/x-genesis-32x-rom;application/x-genesis-rom;application/x-sega-cd-rom;application/x-msx-rom;application/x-neo-geo-pocket-rom;application/x-neo-geo-pocket-color-rom;application/x-pc-engine-rom;application/x-sg1000-rom;application/x-wonderswan-rom;application/x-wonderswan-color-rom;application/x-spectrum-tzx;application/x-spectrum-tap;application/x-atari-2600-rom;application/x-atari-5200-rom;
+-- 
+2.55.0
+
